@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeStudent } from "./studentSlice";
 
-export default function ListStudent() {
+export default function ListStudent({ setEditData }) {
   const students = useSelector(state => state.students);
   const dispatch = useDispatch();
 
@@ -25,6 +25,12 @@ export default function ListStudent() {
               <td>{student.kelas}</td>
               <td>{student.alamat}</td>
               <td>
+                <button
+                  onClick={() => setEditData(student)}
+                >
+                  Edit
+                </button>
+
                 <button
                   className="delete"
                   onClick={() =>

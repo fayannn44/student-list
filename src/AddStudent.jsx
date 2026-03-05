@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addStudent } from "./studentSlice";
+import { addStudent, updateStudent } from "./studentSlice";
 
-export default function AddStudent() {
+export default function AddStudent({ editData, setEditData }) {
   const dispatch = useDispatch();
 
   const [nama, setNama] = useState("");
   const [kelas, setKelas] = useState("");
   const [alamat, setAlamat] = useState("");
 
+  useEffect(() => {
+    if (editData) {
+      setNama(editData.nama);
+      setKelas(editData.kelas);
+      setAlamat(editData.alamat);
+    }
+  }, [editData]);
+
   function handleSubmit() {
     if (!nama || !kelas || !alamat) return;
 
-    dispatch(addStudent({ nama, kelas, alamat }));
+    if (editData) {
+      dispatch(updateStudent({
+        id: editData.id,
+        nama,
+        kelas,
+        alamat,
+      }));
+      setEditData(null);
+    } else {
+      dispatch(addStudent({ nama, kelas, alamat }));
+    }
 
     setNama("");
     setKelas("");
@@ -21,7 +39,7 @@ export default function AddStudent() {
 
   return (
     <div>
-      <h2>Tambah Siswa</h2>
+      <h2>{editData ? "Edit Siswa" : "Tambah Siswa"}</h2>
 
       <input
         placeholder="Nama"
@@ -41,7 +59,9 @@ export default function AddStudent() {
         onChange={(e) => setAlamat(e.target.value)}
       />
 
-      <button onClick={handleSubmit}>Simpan</button>
+      <button onClick={handleSubmit}>
+        {editData ? "Update" : "Simpan"}
+      </button>
     </div>
   );
 }
