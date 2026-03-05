@@ -28,21 +28,18 @@ export default function AddStudent() {
         value={nama}
         onChange={(e) => setNama(e.target.value)}
       />
-      <br />
 
       <input
         placeholder="Kelas"
         value={kelas}
         onChange={(e) => setKelas(e.target.value)}
       />
-      <br />
 
       <input
         placeholder="Alamat"
         value={alamat}
         onChange={(e) => setAlamat(e.target.value)}
       />
-      <br />
 
       <button onClick={handleSubmit}>Simpan</button>
     </div>

@@ -9,7 +9,7 @@ export default function ListStudent() {
     <div>
       <h2>Daftar Siswa</h2>
 
-      <table border="1">
+      <table>
         <thead>
           <tr>
             <th>Nama</th>
@@ -26,6 +26,7 @@ export default function ListStudent() {
               <td>{student.alamat}</td>
               <td>
                 <button
+                  className="delete"
                   onClick={() =>
                     dispatch(removeStudent({ id: student.id }))
                   }
